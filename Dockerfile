@@ -1,5 +1,5 @@
 # docker pull wluns32/psql:latest
-# docker run -d -p 5432:5432 --name psql -v ~/Documents/docker-psql/data:/var/lib/postgresql/10/main --env 'PG_PASSWORD=dpqlemspt' -itd --restart always psql:latest
+# docker run -d -p 5432:5432 --name psql -v /data/psql_data:/var/lib/postgresql/10/main --env 'PG_PASSWORD=dpqlemspt' -itd --restart always psql:latest
 
 FROM ubuntu:bionic-20180526 AS add-apt-repositories
 
