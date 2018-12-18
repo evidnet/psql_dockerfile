@@ -42,6 +42,9 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN chmod 755 /sbin/entrypoint.sh
 
+RUN locale-gen ko_KR.UTF-8
+RUN locale-gen en_US.UTF-8
+
 EXPOSE 5432/tcp
 
 WORKDIR ${PG_HOME}
