@@ -9,7 +9,7 @@ RUN apt-get update \
 
 FROM ubuntu:bionic-20181018
 
-LABEL maintainer="wluns32@gmail.com"
+LABEL maintainer="hazelee@evidnet.co.kr"
 
 ENV PG_APP_HOME="/etc/docker-postgresql" \
     PG_VERSION=10 \
@@ -47,6 +47,8 @@ RUN locale-gen en_US.UTF-8
 
 EXPOSE 5432/tcp
 
+VOLUME [ "/var/lib/postgresql/10/main" ]
+
 WORKDIR ${PG_HOME}
 
-ENTRYPOINT /sbin/entrypoint.sh
+ENTRYPOINT ["/bin/bash", "/sbin/entrypoint.sh"]

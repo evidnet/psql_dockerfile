@@ -13,6 +13,13 @@ elif [[ ${1} == postgres || ${1} == $(which postgres) ]]; then
   set --
 fi
 
+trap_handler() {
+  # Handling Kill Signal
+  # Process will be awaited until postgres related processes are stoped.
+  echo "Stopping PostgreSQL by Kill Signal $1"
+  /usr/bin/sudo -u postgres ${PG_BINDIR}/pg_ctl -D ${PG_DATADIR} stop
+}
+
 # default behaviour is to launch postgres
 if [[ -z ${1} ]]; then
   map_uidgid
@@ -28,9 +35,19 @@ if [[ -z ${1} ]]; then
 
   configure_tuning
 
+  # Start PostgreSQL as a Daemon Process
   echo "Starting PostgreSQL ${PG_VERSION}..."
-  exec start-stop-daemon --start --chuid ${PG_USER}:${PG_USER} \
-    --exec ${PG_BINDIR}/postgres -- -D ${PG_DATADIR} ${EXTRA_ARGS}
+  /usr/bin/sudo -u postgres ${PG_BINDIR}/pg_ctl -D ${PG_DATADIR} start
+
+  # Record PID of Postgres Process
+  trap "trap_handler SIGINT" SIGINT
+  trap "trap_handler SIGTERM" SIGTERM
+  trap "trap_handler SIGKILL" SIGKILL
+
+  # We'll Keep this Process while 'postgres' related processes are alive.
+  while [[ $(ps -Af | grep 'postgres' | wc -l) > 2 ]]; do
+    wait
+  done
 else
   exec "$@"
 fi
