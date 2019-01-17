@@ -38,6 +38,7 @@ if [[ -z ${1} ]]; then
   # Start PostgreSQL as a Daemon Process
   echo "Starting PostgreSQL ${PG_VERSION}..."
   /usr/bin/sudo -u postgres ${PG_BINDIR}/pg_ctl -D ${PG_DATADIR} start
+  sleep 10
 
   # Record PID of Postgres Process
   trap "trap_handler SIGINT" SIGINT
