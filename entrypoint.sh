@@ -38,7 +38,6 @@ if [[ -z ${1} ]]; then
   # Start PostgreSQL as a Daemon Process
   echo "Starting PostgreSQL ${PG_VERSION}..."
   /usr/bin/sudo -u postgres ${PG_BINDIR}/pg_ctl -D ${PG_DATADIR} start
-  sleep 10
 
   # Record PID of Postgres Process
   trap "trap_handler SIGINT" SIGINT
@@ -46,7 +45,8 @@ if [[ -z ${1} ]]; then
   trap "trap_handler SIGKILL" SIGKILL
 
   # We'll Keep this Process while 'postgres' related processes are alive.
-  while [[ $(ps -Af | grep 'postgres' | wc -l) > 2 ]]; do
+  while [[ $(ps -Af | grep 'postgres' | wc -l) > 1 ]]; do
+    sleep 2
     wait
   done
 else
