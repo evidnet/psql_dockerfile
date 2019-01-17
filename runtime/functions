@@ -393,15 +393,39 @@ configure_postgresql() {
 }
 
 configure_tuning() {
+  set_postgresql_param "max_connections" "100"
+
   set_postgresql_param "shared_buffers" "16GB"
   set_postgresql_param "maintenance_work_mem" "2GB"
   set_postgresql_param "effective_cache_size" "48GB"
+  
+  set_postgresql_param "checkpoint_timeout" "15min"
   set_postgresql_param "checkpoint_completion_target" "0.9"
-  set_postgresql_param "wal_buffers" "16MB"
+
   set_postgresql_param "default_statistics_target" "500"
-  set_postgresql_param "random_page_cost" "1.1"
+  set_postgresql_param "random_page_cost" "2.0"
   set_postgresql_param "effective_io_concurrency" "200"
-  set_postgresql_param "work_mem" "419430kB"
+
+  set_postgresql_param "work_mem" "450MB"
+  set_postgresql_param "wal_buffers" "32MB"
   set_postgresql_param "min_wal_size" "4GB"
   set_postgresql_param "max_wal_size" "8GB"
+
+  set_postgresql_param "hot_standby" "off"
+  set_postgresql_param "logging_collector" "on"
+  set_postgresql_param "log_line_prefix" "%m %u@%r/%d [%p]"
+  set_postgresql_param "synchronous_commit" "off"
+  
+  # Log when Query Duration is over 5 minutes.
+  set_postgresql_param "log_min_duration_statement" "5min"
+  
+  # Set Timezone as Korean Standard Time
+  set_postgresql_param "timezone" "ROK"
+  set_postgresql_param "log_timezone" "ROK"
+
+  # Set pg_stat_statements related parameters.
+  set_postgresql_param "shared_preloaded_libraries" "pg_stat_statements"
+  set_postgresql_param "pg_stat_statements.max" "30000"
+  set_postgresql_param "pg_stat_statements.track" "all"
+  set_postgresql_param "track_activity_queue_size" "102400"
 }
