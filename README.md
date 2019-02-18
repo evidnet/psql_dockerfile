@@ -30,7 +30,7 @@
     "insecure-registries": ["docker.evidnet.co.kr"]
   }
   ```
-1. `docker pull docker.evidnet.co.kr/base-images/evidnet/psql:v...` 명령어를 통해 Docker 이미지를 내려받아주세요. (`v...` 부분을 버전 이름으로 꼭 바꿔주세요.)
+1. `docker pull docker.evidnet.co.kr/base-images/evidnet/psql:v1.0` 명령어를 통해 Docker 이미지를 내려받아주세요. (`v1.0` 부분을 받으실 버전 이름으로 꼭 바꿔주세요.)
 2. `docker stop -t 15 psql`이라는 명령어를 통해 기존 컨테이너를 종료해주세요. 시간이 조금 소요될 수 있습니다.
 3. `docker rm psql` 명령어를 통해 종료된 컨테이너를 삭제해주세요. 컨테이너를 삭제해도 데이터는 안전합니다.
 4. 처음 Docker 컨테이너를 만들었던 것과 같은 옵션으로 컨테이너를 생성해주세요. 당연히 이미지 옵션은 새 이미지로 설정해주셔야합니다.
@@ -39,7 +39,7 @@
 
 ## Changelog
 
-### v1.0-beta
+### v1.0-beta -> v1.0
  - **Released At**: 2019-01-17
  - **[CRITICAL]** `docker stop` 명령어를 통해 컨테이너를 종료해도 안전하게 서비스를 종료할 수 있게끔 프로세스의 Kill 시그널을 가로채는 로직을 추가했습니다.
  - **[PERFORMANCE]** 성능 향상을 위한 파라미터 튜닝값들을 적용했습니다. (락플레이스에서 제안받은 설정값)
