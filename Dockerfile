@@ -16,7 +16,7 @@ ENV PG_APP_HOME="/etc/docker-postgresql" \
     PG_USER=postgres \
     PG_HOME=/var/lib/postgresql \
     PG_RUNDIR=/run/postgresql \
-    PG_LOGDIR=/var/log/postgresql \
+    PG_LOGDIR=/var/lib/postgresql/10/main/log \
     PG_CERTDIR=/etc/postgresql/certs
 
 ENV PG_BINDIR=/usr/lib/postgresql/${PG_VERSION}/bin \

@@ -26,13 +26,13 @@ if [[ -z ${1} ]]; then
 
   create_datadir
   create_certdir
-  create_logdir
   create_rundir
 
   set_resolvconf_perms
 
   configure_postgresql
 
+  create_logdir
   configure_tuning
 
   # Start PostgreSQL as a Daemon Process

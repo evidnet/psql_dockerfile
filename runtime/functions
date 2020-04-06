@@ -245,7 +245,7 @@ initialize_database() {
 
   # configure logging
   set_postgresql_param "log_directory" "${PG_LOGDIR}"
-  set_postgresql_param "log_filename" "postgresql-${PG_VERSION}-main.log"
+  set_postgresql_param "log_filename" "postgresql-${PG_VERSION}-main-%Y-%m-%d.log"
 
   # trust connections from local network
   if [[ ${PG_TRUST_LOCALNET} == true ]]; then
@@ -393,7 +393,7 @@ configure_postgresql() {
 }
 
 configure_tuning() {
-  set_postgresql_param "max_connections" "100"
+  set_postgresql_param "max_connections" "300"
 
   set_postgresql_param "shared_buffers" "16GB"
   set_postgresql_param "maintenance_work_mem" "2GB"
@@ -403,7 +403,7 @@ configure_tuning() {
   set_postgresql_param "checkpoint_completion_target" "0.9"
 
   set_postgresql_param "default_statistics_target" "500"
-  set_postgresql_param "random_page_cost" "2.0"
+  set_postgresql_param "random_page_cost" "1.1"
   set_postgresql_param "effective_io_concurrency" "200"
 
   set_postgresql_param "work_mem" "450MB"
