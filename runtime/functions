@@ -420,8 +420,8 @@ configure_tuning() {
   set_postgresql_param "log_min_duration_statement" "5min"
   
   # Set Timezone as Korean Standard Time
-  set_postgresql_param "timezone" "ROK"
-  set_postgresql_param "log_timezone" "ROK"
+  set_postgresql_param "timezone" "Asia/Seoul"
+  set_postgresql_param "log_timezone" "Asia/Seoul"
 
   # Set pg_stat_statements related parameters.
   set_postgresql_param "shared_preloaded_libraries" "pg_stat_statements"

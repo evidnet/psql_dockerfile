@@ -9,6 +9,9 @@ RUN apt-get update \
 
 FROM ubuntu:bionic-20181018
 
+ENV TZ=Asia/Seoul
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 LABEL maintainer="hazelee@evidnet.co.kr"
 
 ENV PG_APP_HOME="/etc/docker-postgresql" \
